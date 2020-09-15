@@ -98,106 +98,108 @@
                         </div>
                     </div>
                     <div id="exam-container" v-show="tab === 'exam'">
-                        <h3>Exam Management</h3>
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-exam-modal">Add Exam</button>
-                            <div>
-                                <div class="modal fade" id="add-exam-modal" tabindex="-1" aria-labelledby="add-exam-modal" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="add-exam-modal-label">Add Exam</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="title" v-model="exam_form.title">
+                        <div v-if="current_exam.id === 0">
+                            <h3>Exam Management</h3>
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-exam-modal">Add Exam</button>
+                                <div>
+                                    <div class="modal fade" id="add-exam-modal" tabindex="-1" aria-labelledby="add-exam-modal" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="add-exam-modal-label">Add Exam</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="title" v-model="exam_form.title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="inputPassword3" class="col-sm-3 col-form-label">Duration</label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control" id="duration" v-model="exam_form.duration">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Duration</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="duration" v-model="exam_form.duration">
-                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" @click="save_exam()" data-dismiss="modal">Save Exam</button>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" @click="save_exam()" data-dismiss="modal">Save Exam</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Duration</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="exam in exams">
-                                    <th scope="row" v-text="exam.id"></th>
-                                    <td v-text="exam.title"></td>
-                                    <td v-text="exam.duration"></td>
-                                    <td>
-                                        <div class="row">
-                                            <button class="btn btn-success mr-3 btn-sm" @click="current_exam = exam">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-primary mr-3 btn-sm" @click="exam_update_form = exam" data-toggle="modal" data-target="#update-exam-modal">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <div>
-                                                <div class="modal fade" id="update-exam-modal" tabindex="-1" aria-labelledby="update-exam-modal" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="add-exam-modal-label">Update Exam</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="form-group row">
-                                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
-                                                                    <div class="col-sm-9">
-                                                                        <input type="text" class="form-control" id="title" v-model="exam_update_form.title">
+                            <div>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Duration</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="exam in exams">
+                                        <th scope="row" v-text="exam.id"></th>
+                                        <td v-text="exam.title"></td>
+                                        <td v-text="exam.duration"></td>
+                                        <td>
+                                            <div class="row">
+                                                <button class="btn btn-success mr-3 btn-sm" @click="current_exam = exam">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-primary mr-3 btn-sm" @click="exam_update_form = exam" data-toggle="modal" data-target="#update-exam-modal">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <div>
+                                                    <div class="modal fade" id="update-exam-modal" tabindex="-1" aria-labelledby="update-exam-modal" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="add-exam-modal-label">Update Exam</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group row">
+                                                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" id="title" v-model="exam_update_form.title">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label for="inputPassword3" class="col-sm-3 col-form-label">Duration</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" id="duration" v-model="exam_update_form.duration">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group row">
-                                                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Duration</label>
-                                                                    <div class="col-sm-9">
-                                                                        <input type="text" class="form-control" id="duration" v-model="exam_update_form.duration">
-                                                                    </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary" @click="update_exam()" data-dismiss="modal">Update Exam</button>
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary" @click="update_exam()" data-dismiss="modal">Update Exam</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <span></span>
+                                                <button class="btn btn-warning btn-sm" @click="delete_exam(exam)">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
                                             </div>
-                                            <span></span>
-                                            <button class="btn btn-warning btn-sm" @click="delete_exam(exam)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div v-if="current_exam.id !== 0">
                             @include('layouts.exam')

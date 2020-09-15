@@ -10,11 +10,12 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+        return response()->json($questions->toArray());
     }
 
     /**
@@ -31,11 +32,12 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $question = Question::create($request->only(['category_id', 'exam_id', 'question']));
+        return response()->json($question);
     }
 
     /**
@@ -46,7 +48,9 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        $question->category;
+        $question->answers;
+        return response()->json($question);
     }
 
     /**
@@ -65,21 +69,24 @@ class QuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question = $question->update($request->only(['category_id', 'exam_id', 'question']));
+        return response()->json($question);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Question $question
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return response()->json([], 200);
     }
 }

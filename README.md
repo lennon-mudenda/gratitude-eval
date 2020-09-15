@@ -17,7 +17,7 @@ the work completed. Pull repo from current location on github
 7. Add the database details for the database created in **step 4**.
 8. Run App Migrations and Seeds with the following commands<br>
 ``php artisan migrate``
-<br>
+9. Run Database Seeds<br>
 ``php artisan db:seed``
 <br>
-9. Run laravel using ``php artisan serve`` navigate to the url shown and create a user to begin using the app.
+10. Run laravel using `php artisan serve` navigate to the url shown and create a user to begin using the app.

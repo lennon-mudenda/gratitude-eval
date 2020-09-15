@@ -19,4 +19,5 @@ the work completed. Pull repo from current location on github
 ``php artisan migrate``
 <br>
 ``php artisan db:seed``
+<br>
 9. Run laravel using ``php artisan serve`` navigate to the url shown and create a user to begin using the app.

@@ -20,4 +20,4 @@ the work completed. Pull repo from current location on github
 9. Run Database Seeds<br>
 ``php artisan db:seed``
 <br>
-10. Run laravel using ``php artisan serve`` navigate to the url shown and create a user to begin using the app.
+10. Run laravel using `php artisan serve` navigate to the url shown and create a user to begin using the app.

@@ -46,6 +46,12 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $exam = Exam::create($request->only(['title', 'duration']));
+        $exam->questions = $exam->questions->transform(function ($question){
+            $question->answers;
+            $question->category;
+            return $question;
+        });
+
         return response()->json($exam);
     }
 
@@ -86,6 +92,11 @@ class ExamController extends Controller
     public function update(Request $request, Exam $exam)
     {
         $exam = $exam->update($request->only(['title', 'duration']));
+        $exam->questions = $exam->questions->transform(function ($question){
+            $question->answers;
+            $question->category;
+            return $question;
+        });
         return response()->json($exam);
     }
 

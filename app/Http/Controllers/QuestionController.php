@@ -15,6 +15,11 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
+        $questions = $questions->transform(function ($question){
+            $question->category;
+            $question->answers;
+            return $question;
+        });
         return response()->json($questions->toArray());
     }
 
@@ -37,6 +42,8 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $question = Question::create($request->only(['category_id', 'exam_id', 'question']));
+        $question->answers;
+        $question->category;
         return response()->json($question);
     }
 
@@ -74,6 +81,8 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         $question = $question->update($request->only(['category_id', 'exam_id', 'question']));
+        $question->category;
+        $question->answers;
         return response()->json($question);
     }
 

@@ -8,7 +8,7 @@
         <span v-text="current_exam.duration"></span>
     </h4>
     <h4>Questions</h4>
-    <div>
+    <div class="mb-3">
         <button @click="question_form.exam_id = current_exam.id" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-question-modal">Add Question</button>
         <div>
             <div class="modal fade" id="add-question-modal" tabindex="-1" aria-labelledby="add-question--modal" aria-hidden="true">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" @click="save_question()">Save Question</button>
+                            <button type="button" class="btn btn-primary" @click="save_question()" data-dismiss="modal">Save Question</button>
                         </div>
                     </div>
                 </div>
@@ -47,10 +47,19 @@
         </div>
     </div>
     <div v-for="(question, i) in current_exam.questions">
-        <p>
-            <span v-text="(i + 1) + '.'" class="mr-3"></span>
-            <span v-text="question.question"></span>
-        </p>
+        <div class="row">
+            <div class="col-11">
+                <p>
+                    <span v-text="(i + 1) + '.'" class="mr-3"></span>
+                    <span v-text="question.question"></span>
+                </p>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-warning btn-sm" @click="delete_question(question)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
         <button @click="answer_form.question_id = question.id" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-answer-modal">Add Answer</button>
         <div>
             <div class="modal fade" id="add-answer-modal" tabindex="-1" aria-labelledby="add-answer-modal" aria-hidden="true">
@@ -78,7 +87,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" @click="save_answer()">Save Answer</button>
+                            <button type="button" class="btn btn-primary" @click="save_answer()" data-dismiss="modal">Save Answer</button>
                         </div>
                     </div>
                 </div>
@@ -86,8 +95,10 @@
         </div>
         <p>Possible Answers</p>
         <div class="row mb-2" v-for="answer in question.answers">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-1">
+                <i class="fas fa-circle"></i>
+            </div>
+            <div class="col-9">
                 <span v-text="answer.answer" v-bind:class="{'text-success': answer.correct, 'text-danger': !answer.correct}"></span>
             </div>
             <div class="col-2">
@@ -95,7 +106,7 @@
                     <i class="fas fa-edit"></i>
                 </button>
                 <span></span>
-                <button class="btn btn-warning btn-sm">
+                <button class="btn btn-warning btn-sm" @click="delete_answer(answer)">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>

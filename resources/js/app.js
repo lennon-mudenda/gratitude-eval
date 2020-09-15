@@ -206,6 +206,93 @@ const app = new Vue({
                 },
                 this
             );
+        },
+
+        delete_category(category)
+        {
+            this.delete(
+                `/categories/${category.id}`,
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.categories = vueApp.categories.filter(function (c) {
+                            return c.id !== category.id;
+                        });
+                    }
+                },
+                this
+            );
+        },
+
+        delete_exam(exam)
+        {
+            this.delete(
+                `/exams/${exam.id}`,
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams = vueApp.exams.filter(function (e) {
+                            return e.id !== exam.id;
+                        });
+                    }
+                },
+                this
+            );
+        },
+
+        delete_question(question)
+        {
+            this.delete(
+                `/questions/${question.id}`,
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        let exam = vueApp.exams[getIndex(vueApp.exams, question.exam_id)];
+                        exam.questions = exam.questions.filter(function (q) {
+                            return q.id !== question.id;
+                        });
+                    }
+                },
+                this
+            );
+        },
+
+        delete_answer(answer)
+        {
+            this.delete(
+                `/answers/${answer.id}`,
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams.forEach(function (exam) {
+                            exam.questions[getIndex(exam.questions, answer.question_id)].answers = exam.questions[getIndex(exam.questions, answer.question_id)].answers.filter(function (a) {
+                                return a.id !== answer.id
+                            });
+                        });
+                    }
+                },
+                this
+            );
+        },
+
+        update_category()
+        {
+
+        },
+
+        update_exam()
+        {
+
+        },
+
+        update_question()
+        {
+
+        },
+
+        update_answer()
+        {
+
         }
     },
 

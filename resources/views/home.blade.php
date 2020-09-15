@@ -8,14 +8,14 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary" @click="tab = 'cat'">Categories</button>
-                    <button type="button" class="btn btn-primary" @click="tab = 'exam'">Exams</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="tab = 'cat'">Categories</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="tab = 'exam'">Exams</button>
                     <br>
                     <br>
                     <div id="cat-container" v-show="tab === 'cat'">
                         <h3>Category Management</h3>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-cat-modal">Add Category</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-cat-modal">Add Category</button>
                             <div>
                                 <div class="modal fade" id="add-cat-modal" tabindex="-1" aria-labelledby="add-cat-modal" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -36,7 +36,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" @click="save_category()">Save Category</button>
+                                                <button type="button" class="btn btn-primary" @click="save_category()" data-dismiss="modal">Save Category</button>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <span></span>
-                                                <button class="btn btn-warning btn-sm">
+                                                <button class="btn btn-warning btn-sm" @click="delete_category(category)">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
@@ -75,7 +75,7 @@
                     <div id="exam-container" v-show="tab === 'exam'">
                         <h3>Exam Management</h3>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-exam-modal">Add Exam</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-exam-modal">Add Exam</button>
                             <div>
                                 <div class="modal fade" id="add-exam-modal" tabindex="-1" aria-labelledby="add-exam-modal" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -102,7 +102,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary" @click="save_exam()">Save Exam</button>
+                                                <button type="button" class="btn btn-primary" @click="save_exam()" data-dismiss="modal">Save Exam</button>
                                             </div>
                                         </div>
                                     </div>
@@ -126,14 +126,14 @@
                                     <td v-text="exam.duration"></td>
                                     <td>
                                         <div class="row">
-                                            <button class="btn btn-success mr-3" @click="current_exam = exam">
+                                            <button class="btn btn-success mr-3 btn-sm" @click="current_exam = exam">
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                             <button class="btn btn-primary mr-3 btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <span></span>
-                                            <button class="btn btn-warning btn-sm">
+                                            <button class="btn btn-warning btn-sm" @click="delete_exam(exam)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>

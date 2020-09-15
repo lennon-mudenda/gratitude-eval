@@ -58,7 +58,7 @@
                                         <td v-text="category.name"></td>
                                         <td>
                                             <div class="row">
-                                                <button class="btn btn-primary mr-3 btn-sm">
+                                                <button class="btn btn-primary mr-3 btn-sm" @click="category_update_form = category">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
                                                 <span></span>
@@ -129,7 +129,7 @@
                                             <button class="btn btn-success mr-3 btn-sm" @click="current_exam = exam">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-primary mr-3 btn-sm">
+                                            <button class="btn btn-primary mr-3 btn-sm" @click="exam_update_form = exam">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <span></span>

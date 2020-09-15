@@ -91,6 +91,27 @@ const app = new Vue({
             question_id: 0,
             answer: '',
             correct: false
+        },
+        exam_update_form: {
+            id: 0,
+            title: '',
+            duration: ''
+        },
+        category_update_form: {
+            id: 0,
+            name: ''
+        },
+        question_update_form: {
+            id: 0,
+            question: '',
+            exam_id: 0,
+            category_id: 0
+        },
+        answer_update_form: {
+            id: 0,
+            question_id: 0,
+            answer: '',
+            correct: false
         }
     },
 

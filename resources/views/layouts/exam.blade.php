@@ -48,13 +48,16 @@
     </div>
     <div v-for="(question, i) in current_exam.questions">
         <div class="row">
-            <div class="col-11">
+            <div class="col-10">
                 <p>
                     <span v-text="(i + 1) + '.'" class="mr-3"></span>
                     <span v-text="question.question"></span>
                 </p>
             </div>
-            <div class="col-1">
+            <div class="col-2">
+                <button class="btn btn-primary btn-sm mr-3" @click="question_update_form  = question">
+                    <i class="fas fa-edit"></i>
+                </button>
                 <button class="btn btn-warning btn-sm" @click="delete_question(question)">
                     <i class="fas fa-trash"></i>
                 </button>

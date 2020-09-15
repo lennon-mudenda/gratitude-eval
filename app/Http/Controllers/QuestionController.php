@@ -21,11 +21,11 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
-        //
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**
@@ -57,11 +57,11 @@ class QuestionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Question $question)
     {
-        //
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**

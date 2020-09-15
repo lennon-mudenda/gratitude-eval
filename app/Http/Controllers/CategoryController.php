@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**
@@ -55,11 +55,11 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Category $category)
     {
-        //
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**

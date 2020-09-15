@@ -22,11 +22,11 @@ class ExamController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
-        //
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**
@@ -61,11 +61,11 @@ class ExamController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit(Exam $exam)
     {
-        //
+        return response()->json(['_token' => csrf_token()]);
     }
 
     /**

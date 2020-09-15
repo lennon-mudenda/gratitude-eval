@@ -28,3 +28,11 @@ Route::resource('exams', ExamController::class);
 Route::resource('questions', QuestionController::class);
 
 Route::resource('answers', AnswerController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

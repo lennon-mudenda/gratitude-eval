@@ -55,6 +55,13 @@ let axiosMethods = {
     }
 };
 
+function getIndex(list, id)
+{
+    let i = 0;
+    while(i < list.length && list[i].id !== id) i++;
+    return i;
+}
+
 const app = new Vue({
     el: '#app',
 
@@ -115,6 +122,86 @@ const app = new Vue({
                     if(!error)
                     {
                         vueApp.exams = data;
+                    }
+                },
+                this
+            );
+        },
+
+        save_exam()
+        {
+            this.post(
+                '/exams',
+                this.exam_form,
+                function(data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams.push(data);
+                        vueApp.exam_form = {
+                            title: '',
+                            duration: ''
+                        };
+                    }
+                },
+                this
+            );
+        },
+
+        save_category()
+        {
+            this.post(
+                '/categories',
+                this.category_form,
+                function(data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.categories.push(data);
+                        vueApp.category_form = {
+                            name: ''
+                        };
+                    }
+                },
+                this
+            );
+        },
+
+        save_question()
+        {
+            this.post(
+                '/questions',
+                this.question_form,
+                function(data, error, vueApp) {
+                    if(!error)
+                    {
+                        let exam = vueApp.exams[getIndex(vueApp.exams, data.exam_id)];
+                        exam.questions.push(data);
+                        vueApp.question_form = {
+                            question: '',
+                            exam_id: 0,
+                            category_id: 0
+                        };
+                    }
+                },
+                this
+            );
+        },
+
+        save_answer()
+        {
+            this.post(
+                '/answers',
+                this.answer_form,
+                function(data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams.forEach(function (exam) {
+                            exam.questions[getIndex(exam.questions, data.question_id)].answers.push(data);
+                        });
+                        vueApp.answer_form = {
+                            question_id: 0,
+                            answer: '',
+                            correct: false
+                        };
                     }
                 },
                 this

@@ -15,7 +15,15 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = Exam::all();
+        $exams = Exam::all()->transform(function ($exam){
+            $exam->questions = $exam->questions->transform(function ($question){
+                $question->answers;
+                return $question;
+            });
+            $exam->category;
+            return $exam;
+        });
+
         return response()->json($exams->toArray());
     }
 

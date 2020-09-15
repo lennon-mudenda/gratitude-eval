@@ -58,10 +58,35 @@
                                         <td v-text="category.name"></td>
                                         <td>
                                             <div class="row">
-                                                <button class="btn btn-primary mr-3 btn-sm" @click="category_update_form = category">
+                                                <button class="btn btn-primary mr-3 btn-sm" @click="category_update_form = category" data-toggle="modal" data-target="#update-cat-modal">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                <span></span>
+                                                <div>
+                                                    <div class="modal fade" id="update-cat-modal" tabindex="-1" aria-labelledby="update-cat-modal" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="add-exam-modal-label">Update Category</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="form-group row">
+                                                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Name</label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" class="form-control" id="name" v-model="category_update_form.name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary" @click="update_category()" data-dismiss="modal">Update Category</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <button class="btn btn-warning btn-sm" @click="delete_category(category)">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
@@ -129,9 +154,41 @@
                                             <button class="btn btn-success mr-3 btn-sm" @click="current_exam = exam">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button class="btn btn-primary mr-3 btn-sm" @click="exam_update_form = exam">
+                                            <button class="btn btn-primary mr-3 btn-sm" @click="exam_update_form = exam" data-toggle="modal" data-target="#update-exam-modal">
                                                 <i class="fas fa-edit"></i>
                                             </button>
+                                            <div>
+                                                <div class="modal fade" id="update-exam-modal" tabindex="-1" aria-labelledby="update-exam-modal" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="add-exam-modal-label">Update Exam</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group row">
+                                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Title</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control" id="title" v-model="exam_update_form.title">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Duration</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" class="form-control" id="duration" v-model="exam_update_form.duration">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="button" class="btn btn-primary" @click="update_exam()" data-dismiss="modal">Update Exam</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <span></span>
                                             <button class="btn btn-warning btn-sm" @click="delete_exam(exam)">
                                                 <i class="fas fa-trash"></i>

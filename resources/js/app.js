@@ -298,22 +298,92 @@ const app = new Vue({
 
         update_category()
         {
-
+            let c = this.category_update_form;
+            this.update(
+                `/categories/${c.id}`,
+                {
+                    name: c.name
+                },
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.categories[getIndex(vueApp.categories, data.id)] = data;
+                    }
+                },
+                this
+            );
         },
 
         update_exam()
         {
-
+            let e = this.exam_update_form;
+            this.update(
+                `/exams/${e.id}`,
+                {
+                    title: e.title,
+                    duration: e.duration
+                },
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams[getIndex(vueApp.exams, data.id)] = data;
+                    }
+                },
+                this
+            );
         },
 
         update_question()
         {
-
+            let q = this.question_update_form;
+            this.update(
+                `/questions/${q.id}`,
+                {
+                    question: q.question,
+                    category_id: q.category_id
+                },
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        let exam = vueApp.exams[getIndex(vueApp.exams, data.exam_id)];
+                        exam.questions = exam.questions.map(function (qq) {
+                            if(qq.id === data.id)
+                            {
+                                qq = data;
+                            }
+                            return qq;
+                        });
+                    }
+                },
+                this
+            );
         },
 
         update_answer()
         {
-
+            let a = this.answer_update_form;
+            this.update(
+                `/answers/${a.id}`,
+                {
+                    answer: a.answer,
+                    correct: a.correct
+                },
+                function (data, error, vueApp) {
+                    if(!error)
+                    {
+                        vueApp.exams.forEach(function (exam) {
+                            exam.questions[getIndex(exam.questions, data.question_id)].answers = exam.questions[getIndex(exam.questions, data.question_id)].answers.filter(function (aa) {
+                                if(aa.id === data.id)
+                                {
+                                    aa = data;
+                                }
+                                return aa;
+                            });
+                        });
+                    }
+                },
+                this
+            );
         }
     },
 

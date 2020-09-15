@@ -50441,6 +50441,27 @@ var app = new Vue({
       question_id: 0,
       answer: '',
       correct: false
+    },
+    exam_update_form: {
+      id: 0,
+      title: '',
+      duration: ''
+    },
+    category_update_form: {
+      id: 0,
+      name: ''
+    },
+    question_update_form: {
+      id: 0,
+      question: '',
+      exam_id: 0,
+      category_id: 0
+    },
+    answer_update_form: {
+      id: 0,
+      question_id: 0,
+      answer: '',
+      correct: false
     }
   },
   computed: {},
@@ -50546,10 +50567,64 @@ var app = new Vue({
         }
       }, this);
     },
-    update_category: function update_category() {},
-    update_exam: function update_exam() {},
-    update_question: function update_question() {},
-    update_answer: function update_answer() {}
+    update_category: function update_category() {
+      var c = this.category_update_form;
+      this.update("/categories/".concat(c.id), {
+        name: c.name
+      }, function (data, error, vueApp) {
+        if (!error) {
+          vueApp.categories[getIndex(vueApp.categories, data.id)] = data;
+        }
+      }, this);
+    },
+    update_exam: function update_exam() {
+      var e = this.exam_update_form;
+      this.update("/exams/".concat(e.id), {
+        title: e.title,
+        duration: e.duration
+      }, function (data, error, vueApp) {
+        if (!error) {
+          vueApp.exams[getIndex(vueApp.exams, data.id)] = data;
+        }
+      }, this);
+    },
+    update_question: function update_question() {
+      var q = this.question_update_form;
+      this.update("/questions/".concat(q.id), {
+        question: q.question,
+        category_id: q.category_id
+      }, function (data, error, vueApp) {
+        if (!error) {
+          var exam = vueApp.exams[getIndex(vueApp.exams, data.exam_id)];
+          exam.questions = exam.questions.map(function (qq) {
+            if (qq.id === data.id) {
+              qq = data;
+            }
+
+            return qq;
+          });
+        }
+      }, this);
+    },
+    update_answer: function update_answer() {
+      var a = this.answer_update_form;
+      this.update("/answers/".concat(a.id), {
+        answer: a.answer,
+        correct: a.correct
+      }, function (data, error, vueApp) {
+        if (!error) {
+          vueApp.exams.forEach(function (exam) {
+            exam.questions[getIndex(exam.questions, data.question_id)].answers = exam.questions[getIndex(exam.questions, data.question_id)].answers.filter(function (aa) {
+              if (aa.id === data.id) {
+                aa = data;
+              }
+
+              return aa;
+            });
+          });
+        }
+      }, this);
+    }
   }),
   mounted: function mounted() {
     this.loadCategories();

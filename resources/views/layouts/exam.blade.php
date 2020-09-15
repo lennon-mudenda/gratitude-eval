@@ -55,43 +55,74 @@
                 </p>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary btn-sm mr-3" @click="question_update_form  = question">
+                <button class="btn btn-primary btn-sm mr-3" @click="question_update_form  = question" data-toggle="modal" data-target="#update-question-modal">
                     <i class="fas fa-edit"></i>
                 </button>
+                <div class="modal fade" id="update-question-modal" tabindex="-1" aria-labelledby="update-question-modal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="add-exam-modal-label">Update Question</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" id="title" v-model="question_update_form.category_id">
+                                            <option value="0">Select Category</option>
+                                            <option v-text="category.name" v-bind:value="category.id" v-for="category in categories"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Question</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="question" v-model="question_update_form.question"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" @click="update_question()" data-dismiss="modal">Update Question</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-warning btn-sm" @click="delete_question(question)">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
         <button @click="answer_form.question_id = question.id" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add-answer-modal">Add Answer</button>
-        <div>
-            <div class="modal fade" id="add-answer-modal" tabindex="-1" aria-labelledby="add-answer-modal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="add-exam-modal-label">Add Answer</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label">Answer</label>
-                                <div class="col-sm-9">
-                                    <textarea class="form-control" id="question" v-model="answer_form.answer"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-3 col-form-label">Correct</label>
-                                <div class="col-sm-9">
-                                    <input type='checkbox' class="form-control"  v-model="answer_form.correct">
-                                </div>
+        <div class="modal fade" id="add-answer-modal" tabindex="-1" aria-labelledby="add-answer-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-exam-modal-label">Add Answer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Answer</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="question" v-model="answer_form.answer"></textarea>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" @click="save_answer()" data-dismiss="modal">Save Answer</button>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Correct</label>
+                            <div class="col-sm-9">
+                                <input type='checkbox' class="form-control"  v-model="answer_form.correct">
+                            </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" @click="save_answer()" data-dismiss="modal">Save Answer</button>
                     </div>
                 </div>
             </div>
@@ -105,10 +136,39 @@
                 <span v-text="answer.answer" v-bind:class="{'text-success': answer.correct, 'text-danger': !answer.correct}"></span>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary mr-3 btn-sm">
+                <button @click="answer_update_form = answer" class="btn btn-primary mr-3 btn-sm" type="button" data-toggle="modal" data-target="#update-answer-modal">
                     <i class="fas fa-edit"></i>
                 </button>
-                <span></span>
+                <div class="modal fade" id="update-answer-modal" tabindex="-1" aria-labelledby="update-answer-modal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="add-exam-modal-label">Update Answer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Answer</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="question" v-model="answer_update_form.answer"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Correct</label>
+                                    <div class="col-sm-9">
+                                        <input type='checkbox' class="form-control"  v-model="answer_update_form.correct">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" @click="update_answer()" data-dismiss="modal">Update Answer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-warning btn-sm" @click="delete_answer(answer)">
                     <i class="fas fa-trash"></i>
                 </button>

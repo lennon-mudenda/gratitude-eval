@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('categories', CategoryController::class);
+
+Route::resource('exams', ExamController::class);
+
+Route::resource('questions', QuestionController::class);
+
+Route::resource('answers', AnswerController::class);

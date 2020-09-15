@@ -50419,6 +50419,10 @@ var app = new Vue({
     tab: '',
     exams: [],
     categories: [],
+    category_query: '',
+    exam_query: '',
+    selected_cat_group: 1,
+    selected_exam_group: 1,
     current_exam: {
       id: 0,
       title: '',
@@ -50464,8 +50468,33 @@ var app = new Vue({
       correct: false
     }
   },
-  computed: {},
+  computed: {
+    category_groups: function category_groups() {
+      return Math.ceil(this.categories.length / 10);
+    },
+    exam_groups: function exam_groups() {
+      return Math.ceil(this.exams.length / 10);
+    },
+    filtered_exams: function filtered_exams() {
+      return this.exams.filter(function (exam) {
+        return app.match_exam_query(exam);
+      }).slice((this.selected_exam_group - 1) * 10, (this.selected_exam_group - 1) * 10 + 10);
+    },
+    filtered_categories: function filtered_categories() {
+      return this.categories.filter(function (category) {
+        return app.match_cat_query(category);
+      }).slice((this.selected_cat_group - 1) * 10, (this.selected_cat_group - 1) * 10 + 10);
+    }
+  },
   methods: _objectSpread(_objectSpread({}, axiosMethods), {}, {
+    match_cat_query: function match_cat_query(category) {
+      if (this.category_query === '') return true;
+      return category.name.search(this.category_query) > 0;
+    },
+    match_exam_query: function match_exam_query(exam) {
+      if (this.exam_query === '') return true;
+      return exam.title.search(this.exam_query) > 0 || exam.title.search(this.exam_query) > 0;
+    },
     loadCategories: function loadCategories() {
       this.get('/categories', function (data, error, vueApp) {
         if (!error) {

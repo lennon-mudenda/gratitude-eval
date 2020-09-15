@@ -44,6 +44,12 @@
                             </div>
                         </div>
                         <div>
+                            <div class="row mb-3">
+                                <div class="col-8"></div>
+                                <div class="col-4">
+                                    <input class="form-control form-control-sm" placeholder="Search Categories..." v-model="category_query">
+                                </div>
+                            </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -53,7 +59,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="category in categories">
+                                    <tr v-for="category in filtered_categories">
                                         <th scope="row" v-text="category.id"></th>
                                         <td v-text="category.name"></td>
                                         <td>
@@ -95,6 +101,11 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="row mb-3 ml-2" v-if="category_groups > 1">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-secondary btn-sm" v-for="n in category_groups" v-text="n" @click="selected_cat_group = n"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="exam-container" v-show="tab === 'exam'">
@@ -136,6 +147,12 @@
                                 </div>
                             </div>
                             <div>
+                                <div class="row mb-3">
+                                    <div class="col-8"></div>
+                                    <div class="col-4">
+                                        <input class="form-control form-control-sm" placeholder="Search Exams..." v-model="exam_query">
+                                    </div>
+                                </div>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -146,7 +163,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="exam in exams">
+                                    <tr v-for="exam in filtered_exams">
                                         <th scope="row" v-text="exam.id"></th>
                                         <td v-text="exam.title"></td>
                                         <td v-text="exam.duration"></td>
@@ -199,6 +216,11 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div class="row mb-3 ml-2" v-if="exam_groups > 1">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-secondary btn-sm" v-for="n in exam_groups" v-text="n" @click="selected_exam_group = n"></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div v-if="current_exam.id !== 0">
